@@ -1,7 +1,5 @@
 package by.itstep.workspace.port.controller;
 
-import java.util.concurrent.Semaphore;
-
 import by.itstep.workspace.port.model.entity.Port;
 import by.itstep.workspace.port.model.logic.LoadingShipCaptain;
 import by.itstep.workspace.port.model.logic.UnloadingShipCaptain;
@@ -9,9 +7,8 @@ import by.itstep.workspace.port.model.logic.UnloadingShipCaptain;
 public class Main {
 	public static void main(String[] args) {
 		int brethCount = 3;
-		Semaphore semaphore = new Semaphore(brethCount);
 		
-		Port port = new Port(semaphore);
+		Port port = new Port(brethCount);
 		
 		LoadingShipCaptain ship1 = new LoadingShipCaptain(port, 1);
 		UnloadingShipCaptain ship5 = new UnloadingShipCaptain(port, 1);
