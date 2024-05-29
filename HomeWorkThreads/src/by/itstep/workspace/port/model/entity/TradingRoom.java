@@ -20,7 +20,7 @@ public class TradingRoom {
         try {
             if (hasOffer == false) {
                 hasOffer = true;
-                condition.await(25, TimeUnit.SECONDS);
+                condition.await(3, TimeUnit.SECONDS);
                 if (hasOffer == true) {
                     hasOffer = false;
                 } else {
