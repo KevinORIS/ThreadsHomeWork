@@ -21,7 +21,7 @@ public class TradingRoom {
             if (hasOffer == false) {
                 hasOffer = true;
                 condition.await(25, TimeUnit.SECONDS);
-                if (hasOffer) {
+                if (hasOffer == true) {
                     hasOffer = false;
                 } else {
                     container--;
@@ -38,8 +38,8 @@ public class TradingRoom {
 	        try {
 	            if (hasOffer == true) {
 	                hasOffer = false;
-	                condition.signal();
 	                container++;
+	                condition.signal();
 	            }
 	        } finally {
 	            lock.unlock();
