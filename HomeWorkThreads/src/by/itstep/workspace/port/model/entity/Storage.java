@@ -10,36 +10,31 @@ public class Storage {
 	public Storage() {
 	}
 
-	public int getContainersCount() {
+	public boolean hasContainers(int requestContainersCount) {
+
+		return containersCount - requestContainersCount >= 0;
+	}
+
+	public int addContainersCount(int addContainersCount, int shipStorage) {
 		try {
 			lock.lock();
-			return containersCount;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+			containersCount += addContainersCount;
+			return shipStorage - addContainersCount;
 		} finally {
 			lock.unlock();
 		}
 	}
 
-	public void addContainersCount() {
+	public int takeContainersCount(int requestContainersCount) {
 		try {
 			lock.lock();
-			containersCount++;
-		} catch (Exception e) {
-			System.err.print(e);
+			if (hasContainers(requestContainersCount)) {
+			containersCount -= requestContainersCount;
+			return requestContainersCount;
+			}
 		} finally {
 			lock.unlock();
 		}
-	}
-	
-	public void takeContainersCount() {
-		try {
-			lock.lock();
-			containersCount--;
-		} catch (Exception e) {
-			System.err.print(e);
-		} finally {
-			lock.unlock();
-		}
+		return 0;
 	}
 }
