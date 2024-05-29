@@ -19,6 +19,7 @@ public class Storage {
 		try {
 			lock.lock();
 			containersCount += addContainersCount;
+			System.out.println("Cклад пополнен: " + containersCount);
 			return shipStorage - addContainersCount;
 		} finally {
 			lock.unlock();
@@ -30,6 +31,7 @@ public class Storage {
 			lock.lock();
 			if (hasContainers(requestContainersCount)) {
 			containersCount -= requestContainersCount;
+			System.out.println("Cклад сокращен: " + containersCount);
 			return requestContainersCount;
 			}
 		} finally {
