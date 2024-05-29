@@ -10,13 +10,15 @@ public class Main {
 		
 		Port port = new Port(brethCount);
 		
+		UnloadingShipCaptain uship1 = new UnloadingShipCaptain(port, 1);
+		UnloadingShipCaptain uship2 = new UnloadingShipCaptain(port, 2);
+		UnloadingShipCaptain uship3 = new UnloadingShipCaptain(port, 3);
+		UnloadingShipCaptain uship4 = new UnloadingShipCaptain(port, 4);
+		
 		LoadingShipCaptain ship1 = new LoadingShipCaptain(port, 1);
-		UnloadingShipCaptain ship5 = new UnloadingShipCaptain(port, 1);
-		//LoadingShipCaptain ship2 = new LoadingShipCaptain(port, 2);
-		UnloadingShipCaptain ship6 = new UnloadingShipCaptain(port, 2);
+		LoadingShipCaptain ship2 = new LoadingShipCaptain(port, 2);
 		LoadingShipCaptain ship3 = new LoadingShipCaptain(port, 3);
-		//UnloadingShipCaptain ship7 = new UnloadingShipCaptain(port, 3);
-		//LoadingShipCaptain ship4 = new LoadingShipCaptain(port, 4);
-		//UnloadingShipCaptain ship8 = new UnloadingShipCaptain(port, 4);	
+		LoadingShipCaptain ship4 = new LoadingShipCaptain(port, 4);
+		
 	}
 }
