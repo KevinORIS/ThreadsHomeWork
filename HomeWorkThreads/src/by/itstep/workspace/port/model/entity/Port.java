@@ -9,14 +9,18 @@ public class Port {
 	private TradingRoom room;
 	private Semaphore semaphore;
 
-	public Port(Semaphore semaphore) {
-		this.semaphore = semaphore;
+	public Port(int brethCount) {
+		semaphore = new Semaphore(brethCount);
 		storage = new Storage();
 		room = new TradingRoom();
 	}
 
 	public TradingRoom getRoom() {
 		return room;
+	}
+	
+	public Storage getStorage() {
+		return storage;
 	}
 	
 	public void moor() throws InterruptedException {
