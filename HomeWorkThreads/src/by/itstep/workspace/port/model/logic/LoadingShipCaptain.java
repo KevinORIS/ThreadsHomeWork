@@ -5,29 +5,60 @@ import java.util.concurrent.TimeUnit;
 import by.itstep.workspace.port.model.entity.Port;
 
 public class LoadingShipCaptain extends ShipCaptain {
-	private int containerCount = 0;
+	private int containersCount;
+	private int requestContainersCount;
 	private int id;
 
 	public LoadingShipCaptain(Port port, int id) {
 		super(port);
 		this.id = id;
+		containersCount = 0;
+		requestContainersCount = 1;
+	}
+
+	public LoadingShipCaptain
+	(Port port, int id, int containersCount, int requestContainersCount) {
+		super(port);
+		this.id = id;
+		this.containersCount = containersCount;
+		this.requestContainersCount = requestContainersCount;
 	}
 
 	@Override
 	public void run() {
 		try {
-			System.out.printf("Загрузочный корабль %d ждет у порта\n", id);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(3);
+			System.out.println(this + " пытается заплыть в порт");
 			port.moor();
-			System.out.printf("Загрузочный корабль %d заплыл в порт\n", id);
-			TimeUnit.SECONDS.sleep(10);
-			containerCount = port.getRoom().recieveOffer(containerCount);
-			System.out.printf("Загрузочный корабль %d уплывает с %d контейнеров\n"
-					, id, containerCount);
-			TimeUnit.SECONDS.sleep(10);
+			TimeUnit.SECONDS.sleep(3);
+			System.out.println(this + " заплыл в порт");
+
+			int attempt = 0;
+			int maxAttempt = 5;
+			
+			while (containersCount != requestContainersCount && attempt < maxAttempt) {
+				TimeUnit.SECONDS.sleep(3);
+				System.out.println(this + " капитан заходит в комнату обмена");
+				containersCount = port.getRoom().recieveOffer(containersCount);
+
+				if (containersCount != requestContainersCount) {
+					TimeUnit.SECONDS.sleep(3);
+					System.out.println(this + " обменяться не удалось, капитан на складе");
+					containersCount 
+						+= port.getStorage().
+							takeContainersCount(requestContainersCount - containersCount);
+				}
+				attempt++;
+			}
 			port.unmoor();
-			System.out.printf("Загрузочный корабль %d уплыл\n", id);
+			System.out.printf("%s выплыл из порта с %d контейнеров\n", this, containersCount);
+
 		} catch (InterruptedException e) {
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "loading ship " + id;
 	}
 }
