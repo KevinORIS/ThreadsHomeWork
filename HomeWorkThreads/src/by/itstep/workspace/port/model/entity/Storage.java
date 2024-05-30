@@ -10,8 +10,15 @@ public class Storage {
 	final static Lock lock = new ReentrantLock();
 
 	private int containersCount;
+	private int storageSize;
 
 	public Storage() {
+		storageSize = 10;
+		LOGGER.trace("created");
+	}
+
+	public Storage(int storageSize) {
+		this.storageSize = storageSize;
 		LOGGER.trace("created");
 	}
 
@@ -22,9 +29,13 @@ public class Storage {
 	public int addContainersCount(int addContainersCount, int shipStorage) {
 		try {
 			lock.lock();
-			containersCount += addContainersCount;
-			LOGGER.debug("Storage replenished: {}", containersCount);
-			return shipStorage - addContainersCount;
+			if (containersCount + addContainersCount <= storageSize) {
+				containersCount += addContainersCount;
+				LOGGER.debug("Storage replenished: {}", containersCount);
+				return shipStorage - addContainersCount;
+			}
+			LOGGER.debug("Storage cant add {} in {}", addContainersCount, storageSize);
+			return shipStorage;
 		} finally {
 			lock.unlock();
 		}
@@ -34,9 +45,9 @@ public class Storage {
 		try {
 			lock.lock();
 			if (hasContainers(requestContainersCount)) {
-			containersCount -= requestContainersCount;
-			LOGGER.debug("Storage reduced: {}", containersCount);
-			return requestContainersCount;
+				containersCount -= requestContainersCount;
+				LOGGER.debug("Storage reduced: {}", containersCount);
+				return requestContainersCount;
 			}
 		} finally {
 			lock.unlock();

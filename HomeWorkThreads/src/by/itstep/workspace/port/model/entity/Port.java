@@ -17,7 +17,14 @@ public class Port {
 		room = new TradingRoom();
 		LOGGER.trace("created");
 	}
-
+	
+	public Port(int brethCount, int storageSize) {
+		semaphore = new Semaphore(brethCount);
+		storage = new Storage(storageSize);
+		room = new TradingRoom();
+		LOGGER.trace("created");
+	}
+	
 	public TradingRoom getRoom() {
 		return room;
 	}
