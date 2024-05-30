@@ -10,12 +10,12 @@ public class Main {
 		
 		Port port = new Port(brethCount);
 		
-		UnloadingShipCaptain uship1 = new UnloadingShipCaptain(port, 1);
+		UnloadingShipCaptain uship1 = new UnloadingShipCaptain(port, 1, 1, 4);
 		UnloadingShipCaptain uship2 = new UnloadingShipCaptain(port, 2);
 		UnloadingShipCaptain uship3 = new UnloadingShipCaptain(port, 3);
 		UnloadingShipCaptain uship4 = new UnloadingShipCaptain(port, 4);
 		
-		LoadingShipCaptain ship1 = new LoadingShipCaptain(port, 1);
+		LoadingShipCaptain ship1 = new LoadingShipCaptain(port, 1, 2, 2);
 		LoadingShipCaptain ship2 = new LoadingShipCaptain(port, 2);
 		LoadingShipCaptain ship3 = new LoadingShipCaptain(port, 3);
 		LoadingShipCaptain ship4 = new LoadingShipCaptain(port, 4);
