@@ -49,7 +49,7 @@ public class LoadingShipCaptain extends ShipCaptain {
 				LOGGER.info(toString() + " comes in trading room");
 				containersCount = port.getRoom().recieveOffer(containersCount);
 
-				if (containersCount != requestContainersCount) {
+				if (containersCount < requestContainersCount) {
 					TimeUnit.SECONDS.sleep(3);
 					LOGGER.info(toString() + " failed to trade, comes in storage");
 					containersCount += port.getStorage().takeContainersCount(requestContainersCount - containersCount);
