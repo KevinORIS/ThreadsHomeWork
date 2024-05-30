@@ -23,7 +23,7 @@ public class Storage {
 		try {
 			lock.lock();
 			containersCount += addContainersCount;
-			LOGGER.info("Storage replenished: {}", containersCount);
+			LOGGER.debug("Storage replenished: {}", containersCount);
 			return shipStorage - addContainersCount;
 		} finally {
 			lock.unlock();
@@ -35,7 +35,7 @@ public class Storage {
 			lock.lock();
 			if (hasContainers(requestContainersCount)) {
 			containersCount -= requestContainersCount;
-			LOGGER.info("Storage reduced: {}", containersCount);
+			LOGGER.debug("Storage reduced: {}", containersCount);
 			return requestContainersCount;
 			}
 		} finally {
