@@ -21,12 +21,18 @@ public class UnloadingShipCaptain extends ShipCaptain {
 		LOGGER.trace("created");
 	}
 
-	public UnloadingShipCaptain
-	(Port port, int id, int containersCount, int containersForSale) {
+	public UnloadingShipCaptain(Port port, int id, int containersCount, int containersForSale) {
 		super(port);
 		this.id = id;
-		this.containersCount = containersCount;
-		this.containersForSale = containersForSale;
+		if (containersCount >= containersForSale) {
+			this.containersCount = containersCount;
+			this.containersForSale = containersForSale;
+		} else {
+			LOGGER.warn("doesn't have such containers for sale");
+			LOGGER.warn("class rolled back to basic settings");
+			this.containersCount = 1;
+			this.containersForSale = 1;
+		}
 		LOGGER.trace("created");
 	}
 
@@ -36,25 +42,24 @@ public class UnloadingShipCaptain extends ShipCaptain {
 			TimeUnit.SECONDS.sleep(3);
 			LOGGER.info("trying to sail into port");
 			port.moor();
-			
+
 			TimeUnit.SECONDS.sleep(3);
 			LOGGER.info("sailed into port");
 
 			int leftContainersCount = containersCount - containersForSale;
-			
+
 			int attempt = 0;
 			int maxAttempt = 5;
-			
+
 			while (containersCount != leftContainersCount && attempt < maxAttempt) {
 				TimeUnit.SECONDS.sleep(3);
 				LOGGER.info("comes in trading room");
 				containersCount = port.getRoom().putOffer(containersCount);
-				
-				if(containersCount != leftContainersCount) {
+
+				if (containersCount != leftContainersCount) {
 					TimeUnit.SECONDS.sleep(3);
 					LOGGER.info("failed to trade, comes in storage");
-					containersCount = 
-							port.getStorage().addContainersCount(containersForSale, containersCount);
+					containersCount = port.getStorage().addContainersCount(containersForSale, containersCount);
 				}
 				attempt++;
 			}

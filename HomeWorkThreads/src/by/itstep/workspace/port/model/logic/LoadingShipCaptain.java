@@ -8,7 +8,7 @@ import by.itstep.workspace.port.model.entity.Port;
 
 public class LoadingShipCaptain extends ShipCaptain {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoadingShipCaptain.class);
-	
+
 	private int containersCount;
 	private int requestContainersCount;
 	private int id;
@@ -21,10 +21,12 @@ public class LoadingShipCaptain extends ShipCaptain {
 		LOGGER.trace("created");
 	}
 
-	public LoadingShipCaptain
-	(Port port, int id, int containersCount, int requestContainersCount) {
+	public LoadingShipCaptain(Port port, int id, int containersCount, int requestContainersCount) {
 		super(port);
 		this.id = id;
+		if (containersCount >= requestContainersCount) {
+			LOGGER.warn("already has needed amount of containers");
+		}
 		this.containersCount = containersCount;
 		this.requestContainersCount = requestContainersCount;
 		LOGGER.trace("created");
@@ -41,8 +43,8 @@ public class LoadingShipCaptain extends ShipCaptain {
 
 			int attempt = 0;
 			int maxAttempt = 5;
-			
-			while (containersCount != requestContainersCount && attempt < maxAttempt) {
+
+			while (containersCount <= requestContainersCount && attempt < maxAttempt) {
 				TimeUnit.SECONDS.sleep(3);
 				LOGGER.info("comes in trading room");
 				containersCount = port.getRoom().recieveOffer(containersCount);
@@ -50,9 +52,7 @@ public class LoadingShipCaptain extends ShipCaptain {
 				if (containersCount != requestContainersCount) {
 					TimeUnit.SECONDS.sleep(3);
 					LOGGER.info("failed to trade, comes in storage");
-					containersCount 
-						+= port.getStorage().
-							takeContainersCount(requestContainersCount - containersCount);
+					containersCount += port.getStorage().takeContainersCount(requestContainersCount - containersCount);
 				}
 				attempt++;
 			}
