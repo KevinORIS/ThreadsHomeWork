@@ -18,46 +18,46 @@ public class LoadingShipCaptain extends ShipCaptain {
 		this.id = id;
 		containersCount = 0;
 		requestContainersCount = 1;
-		LOGGER.trace("created");
+		LOGGER.trace(toString() + " created");
 	}
 
 	public LoadingShipCaptain(Port port, int id, int containersCount, int requestContainersCount) {
 		super(port);
 		this.id = id;
 		if (containersCount >= requestContainersCount) {
-			LOGGER.warn("already has needed amount of containers");
+			LOGGER.warn(toString() + " already has needed amount of containers");
 		}
 		this.containersCount = containersCount;
 		this.requestContainersCount = requestContainersCount;
-		LOGGER.trace("created");
+		LOGGER.trace(toString() + " created");
 	}
 
 	@Override
 	public void run() {
 		try {
 			TimeUnit.SECONDS.sleep(3);
-			LOGGER.info("trying to sail into port");
+			LOGGER.info(toString() + " trying to sail into port");
 			port.moor();
 			TimeUnit.SECONDS.sleep(3);
-			LOGGER.info("sailed into port");
+			LOGGER.info(toString() + " sailed into port");
 
 			int attempt = 0;
 			int maxAttempt = 5;
 
-			while (containersCount <= requestContainersCount && attempt < maxAttempt) {
+			while (containersCount < requestContainersCount && attempt < maxAttempt) {
 				TimeUnit.SECONDS.sleep(3);
-				LOGGER.info("comes in trading room");
+				LOGGER.info(toString() + " comes in trading room");
 				containersCount = port.getRoom().recieveOffer(containersCount);
 
 				if (containersCount != requestContainersCount) {
 					TimeUnit.SECONDS.sleep(3);
-					LOGGER.info("failed to trade, comes in storage");
+					LOGGER.info(toString() + " failed to trade, comes in storage");
 					containersCount += port.getStorage().takeContainersCount(requestContainersCount - containersCount);
 				}
 				attempt++;
 			}
 			port.unmoor();
-			LOGGER.info("floats out from port with {} containers", containersCount);
+			LOGGER.info(toString() + " floats out from port with {} containers", containersCount);
 
 		} catch (InterruptedException e) {
 		}

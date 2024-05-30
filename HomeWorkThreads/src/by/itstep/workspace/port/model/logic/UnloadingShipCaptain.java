@@ -18,7 +18,7 @@ public class UnloadingShipCaptain extends ShipCaptain {
 		this.id = id;
 		containersCount = 1;
 		containersForSale = 1;
-		LOGGER.trace("created");
+		LOGGER.trace(toString() + " created");
 	}
 
 	public UnloadingShipCaptain(Port port, int id, int containersCount, int containersForSale) {
@@ -28,23 +28,23 @@ public class UnloadingShipCaptain extends ShipCaptain {
 			this.containersCount = containersCount;
 			this.containersForSale = containersForSale;
 		} else {
-			LOGGER.warn("doesn't have such containers for sale");
-			LOGGER.warn("class rolled back to basic settings");
+			LOGGER.warn(toString() + " doesn't have such containers for sale");
+			LOGGER.warn(toString() + " class rolled back to basic settings");
 			this.containersCount = 1;
 			this.containersForSale = 1;
 		}
-		LOGGER.trace("created");
+		LOGGER.trace(toString() + " created");
 	}
 
 	@Override
 	public void run() {
 		try {
 			TimeUnit.SECONDS.sleep(3);
-			LOGGER.info("trying to sail into port");
+			LOGGER.info(toString() + " trying to sail into port");
 			port.moor();
 
 			TimeUnit.SECONDS.sleep(3);
-			LOGGER.info("sailed into port");
+			LOGGER.info(toString() + " sailed into port");
 
 			int leftContainersCount = containersCount - containersForSale;
 
@@ -53,18 +53,18 @@ public class UnloadingShipCaptain extends ShipCaptain {
 
 			while (containersCount != leftContainersCount && attempt < maxAttempt) {
 				TimeUnit.SECONDS.sleep(3);
-				LOGGER.info("comes in trading room");
+				LOGGER.info(toString() + " comes in trading room");
 				containersCount = port.getRoom().putOffer(containersCount);
 
 				if (containersCount != leftContainersCount) {
 					TimeUnit.SECONDS.sleep(3);
-					LOGGER.info("failed to trade, comes in storage");
+					LOGGER.info(toString() + " failed to trade, comes in storage");
 					containersCount = port.getStorage().addContainersCount(containersForSale, containersCount);
 				}
 				attempt++;
 			}
 			port.unmoor();
-			LOGGER.info("floats out from port with {} containers", containersCount);
+			LOGGER.info("{} floats out from port with {} containers", toString(), containersCount);
 
 		} catch (InterruptedException e) {
 		}
