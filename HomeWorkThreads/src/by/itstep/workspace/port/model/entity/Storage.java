@@ -2,16 +2,20 @@ package by.itstep.workspace.port.model.entity;
 
 import java.util.concurrent.locks.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Storage {
+	private static final Logger LOGGER = LoggerFactory.getLogger(Storage.class);
 	final static Lock lock = new ReentrantLock();
 
 	private int containersCount;
 
 	public Storage() {
+		LOGGER.trace("created");
 	}
 
 	public boolean hasContainers(int requestContainersCount) {
-
 		return containersCount - requestContainersCount >= 0;
 	}
 
@@ -19,7 +23,7 @@ public class Storage {
 		try {
 			lock.lock();
 			containersCount += addContainersCount;
-			System.out.println("Cклад пополнен: " + containersCount);
+			LOGGER.info("Storage replenished: {}", containersCount);
 			return shipStorage - addContainersCount;
 		} finally {
 			lock.unlock();
@@ -31,7 +35,7 @@ public class Storage {
 			lock.lock();
 			if (hasContainers(requestContainersCount)) {
 			containersCount -= requestContainersCount;
-			System.out.println("Cклад сокращен: " + containersCount);
+			LOGGER.info("Storage reduced: {}", containersCount);
 			return requestContainersCount;
 			}
 		} finally {

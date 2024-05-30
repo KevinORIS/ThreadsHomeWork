@@ -2,9 +2,11 @@ package by.itstep.workspace.port.model.entity;
 
 import java.util.concurrent.Semaphore;
 
-import by.itstep.workspace.port.model.logic.ShipCaptain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Port {
+	private static final Logger LOGGER = LoggerFactory.getLogger(Port.class);
 	private Storage storage;
 	private TradingRoom room;
 	private Semaphore semaphore;
@@ -13,6 +15,7 @@ public class Port {
 		semaphore = new Semaphore(brethCount);
 		storage = new Storage();
 		room = new TradingRoom();
+		LOGGER.trace("created");
 	}
 
 	public TradingRoom getRoom() {
