@@ -34,7 +34,8 @@ public class Storage {
 				LOGGER.debug("Storage replenished: {}", containersCount);
 				return shipStorage - addContainersCount;
 			}
-			LOGGER.debug("Storage cant add {} in {}", addContainersCount, storageSize);
+			LOGGER.debug("Cant add {} in storage that has {} out of {} ",
+					addContainersCount, containersCount, storageSize);
 			return shipStorage;
 		} finally {
 			lock.unlock();

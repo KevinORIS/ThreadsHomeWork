@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class Port {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Port.class);
+	
 	private Storage storage;
 	private TradingRoom room;
 	private Semaphore semaphore;

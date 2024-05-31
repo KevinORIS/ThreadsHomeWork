@@ -9,6 +9,7 @@ import by.itstep.workspace.port.model.entity.Port;
 
 public class UnloadingShipCaptain extends ShipCaptain {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UnloadingShipCaptain.class);
+	
 	private int containersCount;
 	private int containersForSale;
 	private int id;
@@ -69,7 +70,15 @@ public class UnloadingShipCaptain extends ShipCaptain {
 		} catch (InterruptedException e) {
 		}
 	}
-
+	
+	public int getContainersCount() {
+		return containersCount;
+	}
+	
+	public void setContainersForSale(int containersForSale) {
+		this.containersForSale = containersForSale;
+	}
+	
 	@Override
 	public String toString() {
 		return "unloading ship captain " + id;

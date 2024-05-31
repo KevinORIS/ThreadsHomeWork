@@ -62,7 +62,15 @@ public class LoadingShipCaptain extends ShipCaptain {
 		} catch (InterruptedException e) {
 		}
 	}
-
+	
+	public int getContainersCount() {
+		return containersCount;
+	}
+	
+	public int getRequestContainersCount() {
+		return requestContainersCount;
+	}
+	
 	@Override
 	public String toString() {
 		return "loading ship captain " + id;
