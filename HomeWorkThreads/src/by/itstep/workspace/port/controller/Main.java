@@ -19,8 +19,5 @@ public class Main {
 		LoadingShipCaptain ship3 = new LoadingShipCaptain(port, 3);
 		LoadingShipCaptain ship4 = new LoadingShipCaptain(port, 4);
 	
-		
-		
-		
 	}
 }
