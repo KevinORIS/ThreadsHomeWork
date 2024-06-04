@@ -1,7 +1,5 @@
 package by.itstep.workspace.port.model.logic;
 
-import java.util.concurrent.TimeUnit;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,6 +76,7 @@ public class UnloadingShipCaptain extends ShipCaptain {
 	public void setContainersForSale(int containersForSale) {
 		this.containersForSale = containersForSale;
 	}
+	
 	
 	@Override
 	public String toString() {

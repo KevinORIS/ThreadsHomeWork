@@ -22,7 +22,7 @@ public class TradingRoomTest {
 	}
 	
 	@Test
-	public void testPutOffer() throws InterruptedException {
+	void testPutOffer() throws InterruptedException {
 		int containersToSell = 1;
 		int expectedContainersLeft = 1;
 
@@ -32,7 +32,7 @@ public class TradingRoomTest {
 	}
 
 	@Test
-	public void testRecieveOffer() {
+	void testRecieveOffer() {
 		int containersInStorage = 0;
 		int expectedContainersAfterTrade = 0;
 
@@ -42,7 +42,7 @@ public class TradingRoomTest {
 	}
 	
 	@Test
-	public void testTradeBetweenPutAndReciecve() throws InterruptedException {
+	void testTradeBetweenPutAndReciecve() throws InterruptedException {
 		int containersToPut = 1;
 		int containersCount = 1;
 		
