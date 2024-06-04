@@ -12,4 +12,8 @@ public abstract class ShipCaptain implements Runnable {
 		
 		this.port = port;
 	}
+	
+	public void join() throws InterruptedException {
+		thread.join();
+	}
 }
