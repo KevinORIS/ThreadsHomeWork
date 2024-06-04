@@ -35,22 +35,22 @@ public class LoadingShipCaptain extends ShipCaptain {
 	@Override
 	public void run() {
 		try {
-			TimeUnit.SECONDS.sleep(3);
+			
 			LOGGER.info(toString() + " trying to sail into port");
 			port.moor();
-			TimeUnit.SECONDS.sleep(3);
+			
 			LOGGER.info(toString() + " sailed into port");
 
 			int attempt = 0;
 			int maxAttempt = 5;
 
 			while (containersCount < requestContainersCount && attempt < maxAttempt) {
-				TimeUnit.SECONDS.sleep(3);
+				
 				LOGGER.info(toString() + " comes in trading room");
 				containersCount = port.getRoom().recieveOffer(containersCount);
 
 				if (containersCount < requestContainersCount) {
-					TimeUnit.SECONDS.sleep(3);
+					
 					LOGGER.info(toString() + " failed to trade, comes in storage");
 					containersCount += port.getStorage().takeContainersCount(requestContainersCount - containersCount);
 				}

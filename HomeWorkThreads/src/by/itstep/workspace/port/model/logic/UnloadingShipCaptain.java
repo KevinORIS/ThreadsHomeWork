@@ -40,11 +40,11 @@ public class UnloadingShipCaptain extends ShipCaptain {
 	@Override
 	public void run() {
 		try {
-			TimeUnit.SECONDS.sleep(3);
+			
 			LOGGER.info(toString() + " trying to sail into port");
 			port.moor();
 
-			TimeUnit.SECONDS.sleep(3);
+			
 			LOGGER.info(toString() + " sailed into port");
 
 			int leftContainersCount = containersCount - containersForSale;
@@ -53,12 +53,12 @@ public class UnloadingShipCaptain extends ShipCaptain {
 			int maxAttempt = 5;
 
 			while (containersCount != leftContainersCount && attempt < maxAttempt) {
-				TimeUnit.SECONDS.sleep(3);
+				
 				LOGGER.info(toString() + " comes in trading room");
 				containersCount = port.getRoom().putOffer(containersCount);
 
 				if (containersCount != leftContainersCount) {
-					TimeUnit.SECONDS.sleep(3);
+					
 					LOGGER.info(toString() + " failed to trade, comes in storage");
 					containersCount = port.getStorage().addContainersCount(containersForSale, containersCount);
 				}
