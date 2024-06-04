@@ -52,10 +52,11 @@ public class TradingRoomTest {
 		LoadingShipCaptain loadingShipCap = new LoadingShipCaptain(port, 1, containersInStorage, requestContainersInStorage);
 		UnloadingShipCaptain unloadingShipCap = new UnloadingShipCaptain(port, 2, containersCount, containersToPut);
 		
+		loadingShipCap.join();
+		unloadingShipCap.join();
+		
 		int expectedContainersCountAfterTrade = 0;
 		int expectedContainersInStorageAfterTrade = 1;
-		
-		TimeUnit.SECONDS.sleep(10);
 		
 		assertEquals(expectedContainersInStorageAfterTrade, loadingShipCap.getContainersCount());
 		assertEquals(expectedContainersCountAfterTrade, unloadingShipCap.getContainersCount());
